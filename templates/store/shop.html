@@ -1,0 +1,170 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+
+{% block  head %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block content %}
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>مشاوره و سفارش </p>
+						<h1>09196228188 / 09199638223 / 09356202245</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+	<div class="alert alert-light text-center" role="alert">
+		<h3>از گزینه های زیر برای فیلتر کردن استفاده کنید </h3>
+	  </div>
+	<!-- products -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+
+			<div class="row">
+                <div class="col-md-12">
+                    <div class="product-filters">
+                        <ul>
+                            <li class="active" data-filter="*">همه</li>
+                            <li data-filter=".posti">پستی</li>
+                            <li data-filter=".amade">آماده</li>
+                            <li data-filter=".tape">چسب</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+			<div class="row product-lists">
+
+				{% for product in amade %}
+				{% if product.status %}
+				<div class="col-lg-4 col-md-6 text-center amade">
+					<div class="single-product-item">
+						<div class="product-image">
+						{% if product.price == 0 %}
+						<a href="{% url 'product_shop' product.id %}"><img src="{{ product.image.url }}" alt="جعبه اماده"></a>
+						</div>
+						<h3>{{ product.name }}</h3>
+						<p class="product-price"> <small class="text-body-secondary"> (تومان)</small> {{ product.sale_price }}</p>
+						{% else %}
+						<a href="{% url 'product_shop' product.id %}"><div class="badge bg-danger text-white position-absolute"> ٪15 </div><img src="{{ product.image.url }}" alt="جعبه اماده"></a>
+						</div>
+						<h3>{{ product.name }}</h3>
+						<p class="product-price"> <small class="text-body-secondary"> (تومان)</small> {{ product.sale_price }}<span> &#11157; &nbsp;<s>{{ product.price }}</s> &nbsp;</span></p>
+						{% endif %}
+						<a href="{% url 'product_shop' product.id %}" class="cart-btn"> مشاهده </a>
+						<!-- <button type="button" value="{{ product.id }}" class="cart-btn" id="add-cart"> اضافه به سبد <i class="ri-shopping-cart-fill"></i></button> -->
+					</div>
+				</div>
+				{% else %}
+				<div class="col-lg-4 col-md-6 text-center amade">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="{% url 'product_shop' product.id %}" class="disabled"><img src="{{ product.image.url }}" alt="کارتن اماده"></a>
+						</div>
+						<h3>{{ product.name }}</h3>
+						<p class="product-price"> -- <span></span></p>
+						<a href="{% url 'product_shop' product.id %}" class="cart-btn disabled"> موجود نیست </a>
+						<!-- <button type="button" value="#" class="cart-btn">  موجود نیست</button> -->
+					</div>
+				</div>
+				{% endif %}
+				{% endfor %}
+				{% for product in tape %}
+				{% if product.status %}
+				<div class="col-lg-4 col-md-6 text-center tape">
+					<div class="single-product-item">
+						<div class="product-image">
+							{% if product.price == 0 %}
+							<a href="{% url 'product_shop' product.id %}"><img src="{{ product.image.url }}" alt="چسب"></a>
+							</div>
+							<h3>{{ product.name }}</h3>
+							<p class="product-price"> <small class="text-body-secondary"> (تومان)</small> {{ product.sale_price }}</p>
+							{% else %}
+							<a href="{% url 'product_shop' product.id %}"><div class="badge bg-danger text-white position-absolute"> ٪15 </div><img src="{{ product.image.url }}" alt="چسب"></a>
+							</div>
+							<h3>{{ product.name }}</h3>
+							<p class="product-price"> <small class="text-body-secondary"> (تومان)</small> {{ product.sale_price }}<span> &#11157; &nbsp;<s>{{ product.price }}</s> &nbsp;</span></p>
+							{% endif %}
+							<a href="{% url 'product_shop' product.id %}" class="cart-btn"> مشاهده </a>
+						<!-- <button type="button" value="{{ product.id }}" class="cart-btn" id="add-cart"> اضافه به سبد <i class="ri-shopping-cart-fill"></i></button> -->
+					</div>
+				</div>
+				{% else %}
+				<div class="col-lg-4 col-md-6 text-center tape">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="{% url 'product_shop' product.id %}" class="disabled"><img src="{{ product.image.url }}" alt="چسب"></a>
+						</div>
+						<h3>{{ product.name }} {{ product.id }}</h3>
+						<p class="product-price"> -- <span></span></p>
+						<a href="{% url 'product_shop' product.id %}" class="cart-btn disabled"> موجود نیست </a>
+						<!-- <button type="button" value="#" class="cart-btn">  موجود نیست</button> -->
+
+					</div>
+				</div>
+				{% endif %}
+				{% endfor %}
+				{% for product in posti %}
+				{% if product.status %}
+				<div class="col-lg-4 col-md-6 text-center posti">
+					<div class="single-product-item">
+						<div class="product-image">
+							{% if product.price == 0 %}
+							<a href="{% url 'product_shop' product.id %}"><img src="{{ product.image.url }}" alt="جعبه پستی"></a>
+							</div>
+							<h3>{{ product.name }}</h3>
+							<p class="product-price"> <small class="text-body-secondary"> (تومان)</small> {{ product.sale_price }}</p>
+							{% else %}
+							<a href="{% url 'product_shop' product.id %}"><div class="badge bg-danger text-white position-absolute"> ٪15 </div><img src="{{ product.image.url }}" alt="جعبه پستی"></a>
+							</div>
+							<h3>{{ product.name }}</h3>
+							<p class="product-price"> <small class="text-body-secondary"> (تومان)</small> {{ product.sale_price }}<span> &#11157; &nbsp;<s>{{ product.price }}</s> &nbsp;</span></p>
+							{% endif %}
+							<a href="{% url 'product_shop' product.id %}" class="cart-btn"> مشاهده </a>
+						<!-- <button type="button" value="{{ product.id }}" class="cart-btn" id="add-cart"> اضافه به سبد <i class="ri-shopping-cart-fill"></i></button> -->
+					</div>
+				</div>
+
+				{% else%}
+				<div class="col-lg-4 col-md-6 text-center posti">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="{% url 'product_shop' product.id %}" class="disabled"><div class="badge bg-danger text-white position-absolute"> تمام شد </div><img src="{{ product.image.url }}" alt="جعبه پستی"></a>
+						</div>
+						<h3>{{ product.name }}</h3>
+						<p class="product-price"> -- <span></span></p>
+						<a href="{% url 'product_shop' product.id %}" class="cart-btn disabled"> موجود نیست </a>
+						<!-- <button type="button" value="#" class="cart-btn">  موجود نیست</button> -->
+
+					</div>
+				</div>
+				{% endif %}
+
+				{% endfor %}
+
+
+
+
+				
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+{% endblock %}
